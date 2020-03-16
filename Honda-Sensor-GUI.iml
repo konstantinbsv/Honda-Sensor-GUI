@@ -7,6 +7,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.2" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.2" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/javafx-sdk-13.0.2" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/javafx-sdk-13.0.2" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/javafx-sdk-13.0.2" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="javafx-swt" level="project" />
   </component>
 </module>
-
