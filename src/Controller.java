@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 
 public class Controller implements Initializable {
     // constants
-    static final int refreshDelay = 50;     // interface refresh delay in milliseconds
+    static final int REFRESH_DELAY = 50;    // interface refresh delay in milliseconds
+    static final int NUMBER_OF_PADS = 12;   // number of pads on sensor
 
     // logger
     Logger logger = Logger.getLogger(getClass().getName());
@@ -65,7 +66,7 @@ public class Controller implements Initializable {
                 while (true) {
                     updateModelData();
                     Platform.runLater(() -> updateUI());
-                    Thread.sleep(refreshDelay);
+                    Thread.sleep(REFRESH_DELAY);
                 }
             }
         };
@@ -80,6 +81,53 @@ public class Controller implements Initializable {
      * This function is called in an infinite loop by the startUpdateDaemonTask
      */
     private void updateModelData() {
+        // get all values from serial
+        for (int i = 0; i < NUMBER_OF_PADS; i++) {
+
+            String line = Serial.getNextLine();                                 // get next line from serial
+            int designator = DataPatterns.getDesignatorInt(line);               // get designator
+            double capacitance = DataPatterns.getCapacitanceValueDouble(line);  // get capacitance value
+
+            // update model according to designator value from serial
+            switch (designator) {
+                case DataPatterns.Designator.PRESSURE1:
+                    model.setPressure1(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE2:
+                    model.setPressure2(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE3:
+                    model.setPressure3(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE4:
+                    model.setPressure4(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE5:
+                    model.setPressure5(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE6:
+                    model.setPressure6(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE7:
+                    model.setPressure7(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE8:
+                    model.setPressure8(capacitance);
+                    break;
+                case DataPatterns.Designator.PRESSURE_CENTER:
+                    model.setPressureCenter(capacitance);
+                    break;
+                case DataPatterns.Designator.PROXIMITY:
+                    model.setProximity(capacitance);
+                    break;
+                case DataPatterns.Designator.SHEAR_X:
+                    model.setShearX(capacitance);
+                    break;
+                case DataPatterns.Designator.SHEAR_Y:
+                    model.setShearY(capacitance);
+                    break;
+            }
+        }
 
     }
 
