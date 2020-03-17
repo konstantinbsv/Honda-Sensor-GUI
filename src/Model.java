@@ -2,7 +2,7 @@ import javafx.scene.chart.XYChart;
 
 public class Model {
 
-    public static final int MAX_CHART_DATA_POINTS = 250;
+    public static final int MAX_CHART_DATA_POINTS = 100;
     private static Model modelInstance = null;
 
     int dataPoint = 0;
@@ -10,7 +10,7 @@ public class Model {
     // data points for current values
     // private double[] pressuresLateral = new double[6];
     // private double[] centerData = new double[4];    // pressure, proximity, shearX, shearY
-    private double pressure1, pressure2, pressure3, pressure4, pressure5, pressure6;
+    private double pressure1, pressure2, pressure3, pressure4, pressure5, pressure6, pressure7, pressure8;
     private double pressureCenter, proximity, shearX, shearY;
 
     // lateral graphs
@@ -20,6 +20,8 @@ public class Model {
     private XYChart.Series<Number, Number> pressure4Series = new XYChart.Series<>();
     private XYChart.Series<Number, Number> pressure5Series = new XYChart.Series<>();
     private XYChart.Series<Number, Number> pressure6Series = new XYChart.Series<>();
+    private XYChart.Series<Number, Number> pressure7Series = new XYChart.Series<>();
+    private XYChart.Series<Number, Number> pressure8Series = new XYChart.Series<>();
 
     // center graphs
     private XYChart.Series<Number, Number> pressureCenterSeries = new XYChart.Series<>();
@@ -59,6 +61,14 @@ public class Model {
 
     public XYChart.Series<Number, Number> getPressure6Series() {
         return pressure6Series;
+    }
+
+    public XYChart.Series<Number, Number> getPressure7Series() {
+        return pressure7Series;
+    }
+
+    public XYChart.Series<Number, Number> getPressure8Series() {
+        return pressure8Series;
     }
 
     public XYChart.Series<Number, Number> getPressureCenterSeries() {
@@ -101,6 +111,14 @@ public class Model {
         this.pressure6 = pressure6;
     }
 
+    public void setPressure7(double pressure7) {
+        this.pressure7 = pressure7;
+    }
+
+    public void setPressure8(double pressure8) {
+        this.pressure8 = pressure8;
+    }
+
     public void setPressureCenter(double pressureCenter) {
         this.pressureCenter = pressureCenter;
     }
@@ -122,7 +140,10 @@ public class Model {
         pressure2Series.getData().add(new XYChart.Data<>(dataPoint, pressure2));
         pressure3Series.getData().add(new XYChart.Data<>(dataPoint, pressure3));
         pressure4Series.getData().add(new XYChart.Data<>(dataPoint, pressure4));
-        pressure6Series.getData().add(new XYChart.Data<>(dataPoint, pressure5));
+        pressure5Series.getData().add(new XYChart.Data<>(dataPoint, pressure5));
+        pressure6Series.getData().add(new XYChart.Data<>(dataPoint, pressure6));
+        pressure7Series.getData().add(new XYChart.Data<>(dataPoint, pressure7));
+        pressure8Series.getData().add(new XYChart.Data<>(dataPoint, pressure8));
 
         pressureCenterSeries.getData().add(new XYChart.Data<>(dataPoint, pressureCenter));
         proximitySeries.getData().add(new XYChart.Data<>(dataPoint, proximity));
@@ -139,6 +160,8 @@ public class Model {
             pressure4Series.getData().clear();
             pressure5Series.getData().clear();
             pressure6Series.getData().clear();
+            pressure7Series.getData().clear();
+            pressure8Series.getData().clear();
 
             pressureCenterSeries.getData().clear();
             proximitySeries.getData().clear();

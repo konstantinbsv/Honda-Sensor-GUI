@@ -21,6 +21,8 @@ public class Controller implements Initializable {
     public AreaChart<Number, Number> pressure4;
     public AreaChart<Number, Number> pressure5;
     public AreaChart<Number, Number> pressure6;
+    public AreaChart<Number, Number> pressure7;
+    public AreaChart<Number, Number> pressure8;
     // center graphs
     public AreaChart<Number, Number> pressureCenter;
     public AreaChart<Number, Number> proximity;
@@ -41,6 +43,8 @@ public class Controller implements Initializable {
         pressure4.getData().add(model.getPressure4Series());
         pressure5.getData().add(model.getPressure5Series());
         pressure6.getData().add(model.getPressure6Series());
+        pressure7.getData().add(model.getPressure7Series());
+        pressure8.getData().add(model.getPressure8Series());
 
         pressureCenter.getData().add(model.getPressureCenterSeries());
         proximity.getData().add(model.getProximitySeries());
