@@ -2,8 +2,13 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -30,6 +35,11 @@ public class Controller implements Initializable {
     public AreaChart<Number, Number> shearX;
     public AreaChart<Number, Number> shearY;
 
+    // serial port menu
+    public MenuButton serialPortMenu;
+    public List<MenuItem> portMenuItems;
+    private Map<String, String> portMap;
+
     // model object
     public   Model model;
 
@@ -51,8 +61,34 @@ public class Controller implements Initializable {
         proximity.getData().add(model.getProximitySeries());
         shearX.getData().add(model.getShearXSeries());
         shearY.getData().add(model.getShearYSeries());
-        
+
+        initializeSerialMenu();
+
         startUpdateDaemon();
+
+    }
+
+    private void initializeSerialMenu() {
+        portMap = Serial.getAvailableSerialPorts();
+        portMenuItems = new ArrayList<>();
+
+        for (Map.Entry<String, String> mapEntry: portMap.entrySet()) {
+           String portDescription = mapEntry.getValue();        // get port description
+           MenuItem menuItem = new MenuItem(portDescription);   // create new menu item
+           // set event listener
+           menuItem.setOnAction(event -> {
+               boolean opened = Serial.initializeSerial(mapEntry.getKey());
+
+               if (opened) {
+                   serialPortMenu.setText(mapEntry.getKey());
+               } else {
+                   serialPortMenu.setText(mapEntry.getKey() + " unreachable");
+               }
+           });
+
+           portMenuItems.add(menuItem);                 // add menu item to array list
+           serialPortMenu.getItems().add(menuItem);     // add menu item to menu
+        }
 
     }
 
