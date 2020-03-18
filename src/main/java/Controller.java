@@ -69,6 +69,7 @@ public class Controller implements Initializable {
     }
 
     private void initializeSerialMenu() {
+        serialPortMenu.setText(Serial.getLastCOMPort());
         portMap = Serial.getAvailableSerialPorts();
         portMenuItems = new ArrayList<>();
 
