@@ -1,9 +1,9 @@
 import com.fazecast.jSerialComm.SerialPort;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,11 +11,13 @@ public class Serial {
 
     static SerialPort serialPort;
     static InputStream streamIn;
-    static final String defaultComPort = "COM8";
-    static final int baudRate = 9600;
-    static final int dataBits = 8;
-    static final int stopBits = 1;
-    static final int parity = 0;
+
+    static final String USER_DEFAULT_PORT_FILE = "user_default_port.txt"; // for storing last successfully opened COM port
+    static final String DEFAULT_COM_PORT = "COM8";
+    static final int BAUD_RATE = 9600;
+    static final int DATA_BITS = 8;
+    static final int STOP_BITS = 1;
+    static final int PARITY = 0;
 
     static Logger logger = Logger.getLogger("Serial");
 
@@ -70,7 +72,7 @@ public class Serial {
      * @return true if initialization successful
      */
     static boolean initializeSerial() {
-        return initializeSerial(defaultComPort);
+        return initializeSerial(getLastCOMPort());
     }
 
     /**
@@ -89,12 +91,13 @@ public class Serial {
         }
 
         serialPort = SerialPort.getCommPort(comPort);
-        serialPort.setComPortParameters(baudRate, dataBits, stopBits, parity);
+        serialPort.setComPortParameters(BAUD_RATE, DATA_BITS, STOP_BITS, PARITY);
         serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0 , 0);
 
         /* Initialize COM port */
         if (serialPort.openPort()) {
             System.out.println("Port " + comPort + " opened successfully!");
+            saveCOMPort(comPort);
             streamIn = serialPort.getInputStream();
             return true;
         } else {
@@ -123,5 +126,29 @@ public class Serial {
         }
 
         return serialPort.isOpen();
+    }
+
+    static void saveCOMPort(String comPort) {
+        try {
+            PrintWriter fileOut = new PrintWriter(USER_DEFAULT_PORT_FILE);
+            fileOut.print(comPort);
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String getLastCOMPort() {
+        String comPort = DEFAULT_COM_PORT;
+
+        try {
+            File file = new File(USER_DEFAULT_PORT_FILE);
+            Scanner scanner = new Scanner(file);
+            comPort = scanner.nextLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return comPort;
     }
 }
