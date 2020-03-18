@@ -28,12 +28,14 @@
     </orderEntry>
     <orderEntry type="library" name="javafx-swt" level="project" />
     <orderEntry type="library" name="jSerialComm-2.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:14-ea+8" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:14-ea+8" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:14-ea+8" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:14-ea+8" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:14-ea+8" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:14-ea+8" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:13" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:13" level="project" />
     <orderEntry type="library" name="Maven: com.fazecast:jSerialComm:2.6.0" level="project" />
   </component>
 </module>
