@@ -11,8 +11,8 @@ public class Serial {
 
     static SerialPort serialPort;
     static InputStream streamIn;
-    static final String comPort = "COM8";
-    static final int baudRate = 115200;
+    static final String defaultComPort = "COM8";
+    static final int baudRate = 9600;
     static final int dataBits = 8;
     static final int stopBits = 1;
     static final int parity = 0;
@@ -61,11 +61,26 @@ public class Serial {
     }
 
     /**
-     * Initializes serial communication
+     * Initializes serial communication using default COM port
      *
      * @return true if initialization successful
      */
     static boolean initializeSerial() {
+        return initializeSerial(defaultComPort);
+    }
+
+    /**
+     * Initializes serial communication on given COM port
+     *
+     * @param comPort COM port to open
+     * @return true if initialization successful
+     */
+    static boolean initializeSerial(String comPort) {
+
+        // close port if it's already open
+        if (serialPort != null) {
+            serialPort.closePort();
+        }
 
         serialPort = SerialPort.getCommPort(comPort);
         serialPort.setComPortParameters(baudRate, dataBits, stopBits, parity);
