@@ -2,6 +2,8 @@ import com.fazecast.jSerialComm.SerialPort;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,4 +84,15 @@ public class Serial {
         }
     }
 
+    static Map<String, String> getAvailableSerialPorts() {
+        SerialPort[] availableComPorts = SerialPort.getCommPorts();
+        Map<String, String> portMap = new HashMap<>();
+
+        for (SerialPort port: availableComPorts) {
+            portMap.put(port.getSystemPortName(), port.getDescriptivePortName());
+            logger.log(Level.INFO,  port.getSystemPortName() + ": " + port.getDescriptivePortName());
+        }
+
+        return portMap;
+    }
 }
