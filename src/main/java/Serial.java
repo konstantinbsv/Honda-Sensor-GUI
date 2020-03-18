@@ -25,6 +25,10 @@ public class Serial {
      * @return String
      */
     static String getNextLine() {
+        if (streamIn == null) {
+            logger.log(Level.WARNING, "streamIn null - wait for initialization");
+            return "";
+        }
 
         char currentChar;
         StringBuilder bufferString = new StringBuilder();
@@ -34,8 +38,8 @@ public class Serial {
                 currentChar = (char) streamIn.read();
                 bufferString.append(currentChar);
             } while (currentChar != '\r');
-        } catch (IOException io) {
-            System.out.println("IO exception: " + io.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return bufferString.toString();
@@ -80,6 +84,8 @@ public class Serial {
         // close port if it's already open
         if (serialPort != null) {
             serialPort.closePort();
+            serialPort = null;
+            streamIn = null;
         }
 
         serialPort = SerialPort.getCommPort(comPort);
@@ -89,11 +95,11 @@ public class Serial {
         /* Initialize COM port */
         if (serialPort.openPort()) {
             System.out.println("Port " + comPort + " opened successfully!");
-            // stmIn = new BufferedReader(new InputStreamReader(stmPort.getInputStream()));
             streamIn = serialPort.getInputStream();
             return true;
         } else {
             System.out.println("Port " + comPort + " unreachable");
+            serialPort.closePort();
             // TODO: request new port from user
             return false;
         }
@@ -109,5 +115,13 @@ public class Serial {
         }
 
         return portMap;
+    }
+
+    static boolean isPortOpened() {
+        if (serialPort == null) {
+            return false;
+        }
+
+        return serialPort.isOpen();
     }
 }

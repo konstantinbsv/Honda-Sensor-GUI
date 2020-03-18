@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 
 public class Controller implements Initializable {
     // constants
-    static final int REFRESH_DELAY = 50;    // interface refresh delay in milliseconds
-    static final int NUMBER_OF_PADS = 12;   // number of pads on sensor
+    static final int REFRESH_DELAY = 50;      // interface refresh delay in milliseconds
+    static final int VALUES_PER_UPDATE = 5;   // values to be read on evey model update call
 
     // logger
     Logger logger = Logger.getLogger(getClass().getName());
@@ -100,8 +100,11 @@ public class Controller implements Initializable {
             @Override
             protected Void call() throws Exception {
                 while (true) {
-                    updateModelData();
-                    Platform.runLater(() -> updateUI());
+                    if (Serial.isPortOpened()) {
+                        updateModelData();
+                        Platform.runLater(() -> updateUI());
+                    }
+
                     Thread.sleep(REFRESH_DELAY);
                 }
             }
@@ -118,7 +121,7 @@ public class Controller implements Initializable {
      */
     private void updateModelData() {
         // get all values from serial
-        for (int i = 0; i < NUMBER_OF_PADS; i++) {
+        for (int i = 0; i < VALUES_PER_UPDATE; i++) {
 
             String line = Serial.getNextLine();                                 // get next line from serial
             int designator = DataPatterns.getDesignatorInt(line);               // get designator
