@@ -152,21 +152,25 @@ public class Model {
 
         dataPoint++;
         if (dataPoint > MAX_CHART_DATA_POINTS) {
-            dataPoint = 0;
-
-            pressure1Series.getData().clear();
-            pressure2Series.getData().clear();
-            pressure3Series.getData().clear();
-            pressure4Series.getData().clear();
-            pressure5Series.getData().clear();
-            pressure6Series.getData().clear();
-            pressure7Series.getData().clear();
-            pressure8Series.getData().clear();
-
-            pressureCenterSeries.getData().clear();
-            proximitySeries.getData().clear();
-            shearXSeries.getData().clear();
-            shearYSeries.getData().clear();
+            clearCharts();
         }
+    }
+
+    public void clearCharts() {
+        dataPoint = 0;
+
+        pressure1Series.getData().clear();
+        pressure2Series.getData().clear();
+        pressure3Series.getData().clear();
+        pressure4Series.getData().clear();
+        pressure5Series.getData().clear();
+        pressure6Series.getData().clear();
+        pressure7Series.getData().clear();
+        pressure8Series.getData().clear();
+
+        pressureCenterSeries.getData().clear();
+        proximitySeries.getData().clear();
+        shearXSeries.getData().clear();
+        shearYSeries.getData().clear();
     }
 }
