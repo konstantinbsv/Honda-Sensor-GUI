@@ -41,11 +41,6 @@ public class DataPatterns {
         }
     }
 
-    static class CapacitanceUnits {
-        static final String FEMTO = "fF";
-        static final String PICO = "pF";
-    }
-
     static class Designator {
         public static final int PRESSURE1 = 0b0000;
         public static final int PRESSURE2 = 0b0001;
