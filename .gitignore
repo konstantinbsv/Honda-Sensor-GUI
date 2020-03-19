@@ -71,7 +71,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # Custom
-user_default_port.txt
+data.txt
 config.cfg
 target/
 !out/
@@ -79,3 +79,4 @@ out/*
 !out/artifacts/
 out/artifacts/*
 !out/artifacts/Honda_Sensor_GUI_jar
+
