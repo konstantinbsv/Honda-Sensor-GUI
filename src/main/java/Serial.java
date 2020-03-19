@@ -12,7 +12,7 @@ public class Serial {
     static SerialPort serialPort;
     static InputStream streamIn;
 
-    static final String USER_DEFAULT_PORT_FILE = "user_default_port.txt"; // for storing last successfully opened COM port
+    static final String CONFIG_FILE = "config.cfg"; // for storing last successfully opened COM port
     static final String DEFAULT_COM_PORT = "COM8";
     static final int BAUD_RATE = 9600;
     static final int DATA_BITS = 8;
@@ -133,7 +133,7 @@ public class Serial {
 
     static void saveCOMPort(String comPort) {
         try {
-            PrintWriter fileOut = new PrintWriter(USER_DEFAULT_PORT_FILE);
+            PrintWriter fileOut = new PrintWriter(CONFIG_FILE);
             fileOut.print(comPort);
             fileOut.close();
         } catch (IOException e) {
@@ -145,7 +145,7 @@ public class Serial {
         String comPort = DEFAULT_COM_PORT;
 
         try {
-            File file = new File(USER_DEFAULT_PORT_FILE);
+            File file = new File(CONFIG_FILE);
             Scanner scanner = new Scanner(file);
             comPort = scanner.nextLine();
         } catch (IOException e) {
