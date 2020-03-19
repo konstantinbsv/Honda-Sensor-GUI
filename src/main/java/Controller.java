@@ -84,39 +84,39 @@ public class Controller implements Initializable {
         femtoItem.setOnAction(event -> {
             DataPatterns.useFemtoFarads = true;
             unitsMenu.setText(DataPatterns.CapacitanceUnits.FEMTO);
-            model.clearCharts();
         });
 
         picoItem.setOnAction(event -> {
             DataPatterns.useFemtoFarads = false;
             unitsMenu.setText(DataPatterns.CapacitanceUnits.PICO);
-            model.clearCharts();
         });
     }
 
     private void initializeSerialMenu() {
         serialPortMenu.setText(Serial.getLastCOMPort());
-        portMap = Serial.getAvailableSerialPorts();
-        portMenuItems = new ArrayList<>();
 
-        for (Map.Entry<String, String> mapEntry: portMap.entrySet()) {
-           String portDescription = mapEntry.getValue();        // get port description
-           MenuItem menuItem = new MenuItem(portDescription);   // create new menu item
-           // set event listener
-           menuItem.setOnAction(event -> {
-               boolean opened = Serial.initializeSerial(mapEntry.getKey());
+        serialPortMenu.setOnShowing(event -> {
+            serialPortMenu.getItems().clear();
+            portMap = Serial.getAvailableSerialPorts();
 
-               if (opened) {
-                   serialPortMenu.setText(mapEntry.getKey());
-               } else {
-                   serialPortMenu.setText(mapEntry.getKey() + " unreachable");
-               }
-           });
+            // populate menu items
+            for (Map.Entry<String, String> mapEntry: portMap.entrySet()) {
+                String portDescription = mapEntry.getValue();        // get port description
+                MenuItem menuItem = new MenuItem(portDescription);   // create new menu item
+                // set event listener
+                menuItem.setOnAction(eventItem -> {
+                    boolean opened = Serial.initializeSerial(mapEntry.getKey());
 
-           portMenuItems.add(menuItem);                 // add menu item to array list
-           serialPortMenu.getItems().add(menuItem);     // add menu item to menu
-        }
+                    if (opened) {
+                        serialPortMenu.setText(mapEntry.getKey());
+                    } else {
+                        serialPortMenu.setText(mapEntry.getKey() + " unreachable");
+                    }
+                });
 
+                serialPortMenu.getItems().add(menuItem);     // add menu item to menu
+            }
+        });
     }
 
     /**
