@@ -5,9 +5,11 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -149,11 +151,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </AreaChart>
-            <MenuButton fx:id="serialPortMenu" mnemonicParsing="false" text="Serial Port" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </GridPane.margin>
-            </MenuButton>
             <AreaChart fx:id="pressure1" alternativeRowFillVisible="false" animated="false" createSymbols="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" GridPane.columnIndex="1">
                <xAxis>
                   <NumberAxis animated="false" autoRanging="false" minorTickLength="0.0" minorTickVisible="false" side="LEFT" tickLabelGap="0.0" tickLabelsVisible="false" tickLength="0.0" tickMarkVisible="false" tickUnit="0.0" />
@@ -185,6 +182,23 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </VBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="3">
+               <children>
+                  <MenuButton fx:id="unitsMenu" mnemonicParsing="false" text="Units">
+                    <items>
+                      <MenuItem fx:id="femtoItem" mnemonicParsing="false" text="fF" />
+                      <MenuItem fx:id="picoItem" mnemonicParsing="false" text="pF" />
+                    </items>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MenuButton fx:id="serialPortMenu" mnemonicParsing="false" text="Serial Port" />
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </HBox>
          </children>
          <opaqueInsets>
             <Insets />
