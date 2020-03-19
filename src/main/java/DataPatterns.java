@@ -11,6 +11,8 @@ public class DataPatterns {
     private static final String fullRowString = "\\((\\d{4})\\)(\\d.\\d+)"; // matches full row from serial output
     private static final Pattern fullRowPattern = Pattern.compile(fullRowString);
 
+    public static boolean useFemtoFarads = true;    // enables multiplier for femtofarads
+
     public static int getDesignatorInt (String rawData) {
         Matcher floatMatcher;
 
@@ -29,10 +31,19 @@ public class DataPatterns {
         floatMatcher = fullRowPattern.matcher(rawData);
 
         if (floatMatcher.find()) {
-            return Double.parseDouble(floatMatcher.group(2));   // parse to int, already in base 10
+            double capacitanceValue = Double.parseDouble(floatMatcher.group(2));   // parse to int, already in base 10
+            if (useFemtoFarads) {
+                capacitanceValue *= 1000;
+            }
+            return capacitanceValue;
         } else {
             return 0.0;
         }
+    }
+
+    static class CapacitanceUnits {
+        static final String FEMTO = "fF";
+        static final String PICO = "pF";
     }
 
     static class Designator {
