@@ -40,6 +40,11 @@ public class Controller implements Initializable {
     public List<MenuItem> portMenuItems;
     private Map<String, String> portMap;
 
+    // capacitance units menu
+    public MenuButton unitsMenu;
+    public MenuItem picoItem;
+    public MenuItem femtoItem;
+
     // model object
     public   Model model;
 
@@ -63,9 +68,30 @@ public class Controller implements Initializable {
         shearY.getData().add(model.getShearYSeries());
 
         initializeSerialMenu();
+        initializeUnitsMenu();
 
         startUpdateDaemon();
 
+    }
+
+    private void initializeUnitsMenu() {
+        if (DataPatterns.useFemtoFarads) {
+            unitsMenu.setText(DataPatterns.CapacitanceUnits.FEMTO);
+        } else {
+            unitsMenu.setText(DataPatterns.CapacitanceUnits.PICO);
+        }
+
+        femtoItem.setOnAction(event -> {
+            DataPatterns.useFemtoFarads = true;
+            unitsMenu.setText(DataPatterns.CapacitanceUnits.FEMTO);
+            model.clearCharts();
+        });
+
+        picoItem.setOnAction(event -> {
+            DataPatterns.useFemtoFarads = false;
+            unitsMenu.setText(DataPatterns.CapacitanceUnits.PICO);
+            model.clearCharts();
+        });
     }
 
     private void initializeSerialMenu() {
