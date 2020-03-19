@@ -177,4 +177,12 @@ public class Model {
     public void moveChartsToEnd() {
         dataPoint = MAX_CHART_DATA_POINTS - 1;
     }
+
+    static class Labels {
+        public static final String WRITE_ENABLED = "Writing...";
+        public static final String WRITE_DISABLED = "Write to file";
+        public static final String FEMTO = "femtoF";
+        public static final String PICO = "picoF";
+        public static final String WRITE_TOOLTIP = "Click to start/stop writing serial data to file.";
+    }
 }
