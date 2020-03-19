@@ -27,16 +27,19 @@ public class Serial {
      * @return String
      */
     static String getNextLine() {
-        if (streamIn == null) {
-            logger.log(Level.WARNING, "streamIn null - wait for initialization");
-            return "";
-        }
-
         char currentChar;
         StringBuilder bufferString = new StringBuilder();
 
         try {
             do {
+                if (streamIn == null ) {
+                    logger.log(Level.WARNING, "streamIn null - wait for initialization");
+                    return "";
+                }
+                if (streamIn.available() < 0) {
+                    logger.log(Level.WARNING, "No data on streamIn");
+                    return "";
+                }
                 currentChar = (char) streamIn.read();
                 bufferString.append(currentChar);
             } while (currentChar != '\r');
