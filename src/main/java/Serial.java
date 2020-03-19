@@ -13,11 +13,16 @@ public class Serial {
     static InputStream streamIn;
 
     static final String CONFIG_FILE = "config.cfg"; // for storing last successfully opened COM port
+    static final String DATA_FILE = "data.txt";     // for storing serial data
+
     static final String DEFAULT_COM_PORT = "COM8";
     static final int BAUD_RATE = 9600;
     static final int DATA_BITS = 8;
     static final int STOP_BITS = 1;
     static final int PARITY = 0;
+
+    static private int writeCalls;
+    static private boolean writeEnabled;
 
     static Logger logger = Logger.getLogger("Serial");
 
@@ -45,6 +50,9 @@ public class Serial {
             } while (currentChar != '\r');
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (writeEnabled) {
+            writeLine(bufferString.toString());
         }
 
         return bufferString.toString();
@@ -153,5 +161,38 @@ public class Serial {
         }
 
         return comPort;
+    }
+
+    static void writeLine(String line) {
+        if (writeCalls < 20) {
+            if (writeCalls == 0) {
+                try(FileWriter dataFileWriter = new FileWriter(DATA_FILE);){
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            writeCalls++;
+
+            return;
+        }
+
+        try(FileWriter dataFileWriter = new FileWriter(DATA_FILE, true);
+            BufferedWriter dataBufferedWriter = new BufferedWriter(dataFileWriter))
+        {
+            dataBufferedWriter.write(line);
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    static void enableWrite() {
+        writeCalls = 0;
+        writeEnabled = true;
+    }
+
+    static void disableWrite() {
+        writeEnabled = false;
     }
 }
