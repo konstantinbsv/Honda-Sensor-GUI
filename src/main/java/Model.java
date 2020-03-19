@@ -173,4 +173,8 @@ public class Model {
         shearXSeries.getData().clear();
         shearYSeries.getData().clear();
     }
+
+    public void moveChartsToEnd() {
+        dataPoint = MAX_CHART_DATA_POINTS - 1;
+    }
 }

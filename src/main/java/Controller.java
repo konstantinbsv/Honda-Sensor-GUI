@@ -84,11 +84,15 @@ public class Controller implements Initializable {
         femtoItem.setOnAction(event -> {
             DataPatterns.useFemtoFarads = true;
             unitsMenu.setText(DataPatterns.CapacitanceUnits.FEMTO);
+            model.clearCharts();
+            model.moveChartsToEnd();
         });
 
         picoItem.setOnAction(event -> {
             DataPatterns.useFemtoFarads = false;
             unitsMenu.setText(DataPatterns.CapacitanceUnits.PICO);
+            model.clearCharts();
+            model.moveChartsToEnd();
         });
     }
 
