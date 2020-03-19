@@ -164,7 +164,7 @@
             </AreaChart>
             <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
-                  <Label style="-fx-text-fill: #797979;" text="Sensor GUI v1.0">
+                  <Label style="-fx-text-fill: #797979;" text="Sensor GUI v1.1">
                      <font>
                         <Font size="10.0" />
                      </font>
