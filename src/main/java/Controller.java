@@ -118,7 +118,7 @@ public class Controller implements Initializable {
                     } else {
                         serialPortMenu.setText(mapEntry.getKey() + " unreachable");
                     }
-                    
+
                     model.clearCharts();
                     changingPorts = false;
                 });
