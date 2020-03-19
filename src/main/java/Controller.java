@@ -39,6 +39,7 @@ public class Controller implements Initializable {
     public MenuButton serialPortMenu;
     public List<MenuItem> portMenuItems;
     private Map<String, String> portMap;
+    private boolean changingPorts;
 
     // capacitance units menu
     public MenuButton unitsMenu;
@@ -109,6 +110,7 @@ public class Controller implements Initializable {
                 MenuItem menuItem = new MenuItem(portDescription);   // create new menu item
                 // set event listener
                 menuItem.setOnAction(eventItem -> {
+                    changingPorts = true;
                     boolean opened = Serial.initializeSerial(mapEntry.getKey());
 
                     if (opened) {
@@ -116,6 +118,9 @@ public class Controller implements Initializable {
                     } else {
                         serialPortMenu.setText(mapEntry.getKey() + " unreachable");
                     }
+                    
+                    model.clearCharts();
+                    changingPorts = false;
                 });
 
                 serialPortMenu.getItems().add(menuItem);     // add menu item to menu
@@ -154,6 +159,9 @@ public class Controller implements Initializable {
         // get all values from serial
         for (int i = 0; i < VALUES_PER_UPDATE; i++) {
 
+            if(changingPorts) {
+                return;
+            }
             String line = Serial.getNextLine();                                 // get next line from serial
             int designator = DataPatterns.getDesignatorInt(line);               // get designator
             double capacitance = DataPatterns.getCapacitanceValueDouble(line);  // get capacitance value
