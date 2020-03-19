@@ -4,6 +4,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class Controller implements Initializable {
     public List<MenuItem> portMenuItems;
     private Map<String, String> portMap;
     private boolean changingPorts;
+    public ToggleButton writeToggle;
 
     // capacitance units menu
     public MenuButton unitsMenu;
@@ -69,29 +72,45 @@ public class Controller implements Initializable {
         shearY.getData().add(model.getShearYSeries());
 
         initializeSerialMenu();
+        initializeWriteButton();
         initializeUnitsMenu();
 
         startUpdateDaemon();
 
     }
 
+    private void initializeWriteButton() {
+        writeToggle.setText(Model.Labels.WRITE_DISABLED);
+        writeToggle.setTooltip(new Tooltip(Model.Labels.WRITE_TOOLTIP));
+
+        writeToggle.setOnAction(event -> {
+            if (writeToggle.isSelected()) {
+                Serial.enableWrite();
+                writeToggle.setText(Model.Labels.WRITE_ENABLED);
+            } else {
+                Serial.disableWrite();
+                writeToggle.setText(Model.Labels.WRITE_DISABLED);
+            }
+        });
+    }
+
     private void initializeUnitsMenu() {
         if (DataPatterns.useFemtoFarads) {
-            unitsMenu.setText(DataPatterns.CapacitanceUnits.FEMTO);
+            unitsMenu.setText(Model.Labels.FEMTO);
         } else {
-            unitsMenu.setText(DataPatterns.CapacitanceUnits.PICO);
+            unitsMenu.setText(Model.Labels.PICO);
         }
 
         femtoItem.setOnAction(event -> {
             DataPatterns.useFemtoFarads = true;
-            unitsMenu.setText(DataPatterns.CapacitanceUnits.FEMTO);
+            unitsMenu.setText(Model.Labels.FEMTO);
             model.clearCharts();
             model.moveChartsToEnd();
         });
 
         picoItem.setOnAction(event -> {
             DataPatterns.useFemtoFarads = false;
-            unitsMenu.setText(DataPatterns.CapacitanceUnits.PICO);
+            unitsMenu.setText(Model.Labels.PICO);
             model.clearCharts();
             model.moveChartsToEnd();
         });
