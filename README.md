@@ -5,6 +5,7 @@ Designed to read and graph output from the capacitive sensor boards used for the
 ### Features
 - Windows, Linux, macOS compatible
 - Auto-ranging scales
+- Serial data write out to file
 - Capacitance unit selection
 - Serial port selection
 - Compatible with 1 to 12 sensor output channels.
