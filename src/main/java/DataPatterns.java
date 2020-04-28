@@ -43,16 +43,16 @@ public class DataPatterns {
 
     static class Designator {
         public static final int PRESSURE1 = 0b0000;
-        public static final int PRESSURE2 = 0b0001;
-        public static final int PRESSURE3 = 0b0010;
-        public static final int PRESSURE4 = 0b0011;
-        public static final int PRESSURE5 = 0b0100;
-        public static final int PRESSURE6 = 0b0101;
-        public static final int PRESSURE7 = 0b0110;
-        public static final int PRESSURE8 = 0b0111;
-        public static final int PRESSURE_CENTER = 0b1000;
-        public static final int PROXIMITY = 0b1001;
-        public static final int SHEAR_X = 0b1010;
-        public static final int SHEAR_Y = 0b1011;
+        public static final int PRESSURE2 = 0b0101;
+        public static final int PRESSURE3 = 0b0110;
+        public static final int PRESSURE4 = 0b0111;
+        public static final int PRESSURE5 = 0b1000;
+        public static final int PRESSURE6 = 0b1001;
+        public static final int PRESSURE7 = 0b1010;
+        public static final int PRESSURE8 = 0b1011;
+        public static final int PRESSURE_CENTER = 0b0001;
+        public static final int PROXIMITY = 0b0010;
+        public static final int SHEAR_X = 0b0100;
+        public static final int SHEAR_Y = 0b0011;
     }
 }
