@@ -47,7 +47,7 @@ public class Serial {
                 }
                 currentChar = (char) streamIn.read();
                 bufferString.append(currentChar);
-            } while (currentChar != '\r');
+            } while (currentChar != '\r' && currentChar != '\n');
         } catch (Exception e) {
             e.printStackTrace();
         }
