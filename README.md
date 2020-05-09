@@ -23,5 +23,11 @@ For macOS or Linux, run from Terminal by typing:
 
 On Windows, just double-click the .jar file.
 
-### Screenshots
+## Changelog
+### 1.4.2  
+   * Modify line parser to work with any combination of CR and/or LF terminations
+### 1.4.1  
+   * Change binary designators
+    
+## Screenshots
 ![Screenshot](https://github.com/konstantinbsv/Honda-Sensor-GUI/blob/master/images/Honda%20Sensor%20GUI%20-%2012%20channel.jpg)
